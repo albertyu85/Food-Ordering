@@ -58,11 +58,11 @@ public class tab_layout extends Fragment {
     public Fragment getItem(int position) {
       switch (position) {
         case 0:
-          return new OneFragment();
+          return new IndividualFragment();
         case 1:
-          return new TwoFragment();
+          return new PackageFragment();
         case 2:
-          return new ThreeFragment();
+          return new RecipeFragment();
       }
       return null;
     }
