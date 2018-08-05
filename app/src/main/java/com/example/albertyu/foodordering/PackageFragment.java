@@ -12,8 +12,8 @@ import java.util.List;
 
 public class PackageFragment extends Fragment{
 
-  List<ShoppingItem> shoppingItemList2;
-  ListView listView2;
+  List<ShoppingItem> shoppingItemList;
+  ListView listView;
 
 
   public PackageFragment() {
@@ -30,21 +30,17 @@ public class PackageFragment extends Fragment{
       Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_package, container, false);
 
-    shoppingItemList2 = new ArrayList<>();
-    listView2 = (ListView) view.findViewById(R.id.listview_package);
+    shoppingItemList = new ArrayList<>();
+    listView = (ListView) view.findViewById(R.id.listview_package);
 
-    shoppingItemList2.add(new ShoppingItem(R.drawable.mackeral, "Mackerel In Tomato Sauce", "Brand: Excelsior \n Net Weight: 5.5 Oz (155g)"));
-    shoppingItemList2.add(new ShoppingItem(R.drawable.sardinesinoil, "Sardines In Oil", "Brand: Excelsior \n Net Weight: 3.75 Oz (106g)"));
-    shoppingItemList2.add(new ShoppingItem(R.drawable.vienna, "Vienna Sausages", "Made with Chicken, Beef, And Pork. Added in Chicken Broth. Hot &amp Spicy \n Brand: Excelsior \n Net Weight: 4.8 Oz"));
-    shoppingItemList2.add(new ShoppingItem(R.drawable.watercrackers, "Water Crackers", "Cinnamon and Fat Free \n Brand: Excelsior"));
-    shoppingItemList2.add(new ShoppingItem(R.drawable.porkszn, "Jamaican Pork Seasoning", "Brand: EASISPICE \n Net Weight: 3.6 Oz (130g)"));
+    shoppingItemList.add(new ShoppingItem(R.drawable.basket, "Basket", "Basket of goodies"));
 
-    MyListAdapter adapter = new MyListAdapter(getActivity(), R.layout.list_layout, shoppingItemList2);
+    MyListAdapter adapter = new MyListAdapter(getActivity(), R.layout.list_layout, shoppingItemList);
 
-    listView2.setAdapter(adapter);
+    listView.setAdapter(adapter);
 
     // Inflate the layout for this fragment
-    return inflater.inflate(R.layout.fragment_package, container, false);
+    return view;
   }
 
 }
