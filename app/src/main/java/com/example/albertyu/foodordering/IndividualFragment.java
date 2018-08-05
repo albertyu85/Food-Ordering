@@ -1,12 +1,15 @@
 package com.example.albertyu.foodordering;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -44,10 +47,26 @@ public class IndividualFragment extends Fragment{
 
     listView.setAdapter(adapter);
 
+    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+      @Override
+      public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        Intent intent = new Intent(getActivity(), DetailActivity.class);
+        ShoppingItem item = (ShoppingItem) adapterView.getItemAtPosition(i);
+        intent.putExtra("Image", item.getImage());
+        intent.putExtra("Name", item.getName());
+        intent.putExtra("Description", item.getDescription());
+
+        startActivity(intent);
+      }
+    });
+
     // Inflate the layout for this fragment
     return view;
   }
 
+  public void launchDetailActivity() {
+
+  }
 
 
 }
