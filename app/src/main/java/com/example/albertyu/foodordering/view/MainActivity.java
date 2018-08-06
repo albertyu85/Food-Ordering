@@ -1,4 +1,4 @@
-package com.example.albertyu.foodordering;
+package com.example.albertyu.foodordering.view;
 
 import android.content.res.Configuration;
 import android.support.design.widget.NavigationView;
@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import com.example.albertyu.foodordering.R;
 
 public class MainActivity extends AppCompatActivity {
 

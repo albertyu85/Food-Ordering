@@ -1,8 +1,9 @@
-package com.example.albertyu.foodordering;
+package com.example.albertyu.foodordering.view;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import com.example.albertyu.foodordering.R;
 
 public class SplashActivity extends AppCompatActivity {
 

@@ -1,6 +1,4 @@
-package com.example.albertyu.foodordering;
-
-import android.media.Image;
+package com.example.albertyu.foodordering.model;
 
 public class ShoppingItem {
 

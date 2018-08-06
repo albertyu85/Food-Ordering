@@ -1,10 +1,11 @@
-package com.example.albertyu.foodordering;
+package com.example.albertyu.foodordering.view;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import com.example.albertyu.foodordering.R;
 
 public class RecipeFragment extends Fragment{
 

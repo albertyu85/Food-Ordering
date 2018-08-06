@@ -1,4 +1,4 @@
-package com.example.albertyu.foodordering;
+package com.example.albertyu.foodordering.view;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.example.albertyu.foodordering.R;
 
 public class DetailFragment extends Fragment{
 

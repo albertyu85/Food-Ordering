@@ -1,4 +1,4 @@
-package com.example.albertyu.foodordering;
+package com.example.albertyu.foodordering.view;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -7,10 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.albertyu.foodordering.model.ShoppingItem;
+import com.example.albertyu.foodordering.R;
 import java.util.List;
 
 public class MyListAdapter extends ArrayAdapter<ShoppingItem>{
