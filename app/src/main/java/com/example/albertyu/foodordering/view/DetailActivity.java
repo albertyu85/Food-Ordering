@@ -7,8 +7,6 @@ import android.support.v7.widget.Toolbar;
 import com.example.albertyu.foodordering.R;
 
 public class DetailActivity extends AppCompatActivity {
-
-
     private Toolbar toolbar;
 
     @Override
