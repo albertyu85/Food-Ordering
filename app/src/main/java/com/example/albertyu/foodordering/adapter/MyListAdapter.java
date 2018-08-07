@@ -1,4 +1,4 @@
-package com.example.albertyu.foodordering.view;
+package com.example.albertyu.foodordering.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

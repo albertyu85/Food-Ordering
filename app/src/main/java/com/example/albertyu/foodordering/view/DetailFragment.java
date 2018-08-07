@@ -18,7 +18,7 @@ public class DetailFragment extends Fragment{
     String name;
     String description;
     public DetailFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
@@ -30,7 +30,6 @@ public class DetailFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view =inflater.inflate(R.layout.fragment_detail, container, false);
-        // Inflate the layout for this fragment
         mImageView = (ImageView) view.findViewById(R.id.imageViewItem);
         mName = (TextView) view.findViewById(R.id.textViewName);
         mDescription = (TextView) view.findViewById(R.id.textViewDetailDescription);

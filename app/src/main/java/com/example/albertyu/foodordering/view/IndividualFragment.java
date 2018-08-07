@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.albertyu.foodordering.adapter.MyListAdapter;
+import com.example.albertyu.foodordering.controller.Controller;
 import com.example.albertyu.foodordering.model.ShoppingItem;
 import com.example.albertyu.foodordering.R;
 import java.util.ArrayList;
@@ -32,6 +34,8 @@ public class IndividualFragment extends Fragment{
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_individual, container, false);
+
+    final Controller controller = (Controller) getActivity().getApplicationContext();
 
     shoppingItemList = new ArrayList<>();
     listView = (ListView) view.findViewById(R.id.listview_food);
@@ -59,7 +63,6 @@ public class IndividualFragment extends Fragment{
       }
     });
 
-    // Inflate the layout for this fragment
     return view;
   }
 

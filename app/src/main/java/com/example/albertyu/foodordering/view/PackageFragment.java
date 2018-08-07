@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.example.albertyu.foodordering.adapter.MyListAdapter;
 import com.example.albertyu.foodordering.model.ShoppingItem;
 import com.example.albertyu.foodordering.R;
 import java.util.ArrayList;
