@@ -32,27 +32,42 @@ public class MyListAdapter extends ArrayAdapter<ShoppingItem>{
     public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         //we need to get the view of the xml for our list item
         //And for this we need a layoutinflater
-        LayoutInflater layoutInflater = LayoutInflater.from(context);
+        ViewHolderItem viewHolderItem;
+        if (convertView == null) {
+            LayoutInflater layoutInflater = LayoutInflater.from(context);
 
-        //getting the view
-        View view = layoutInflater.inflate(resource, null, false);
+            //getting the view
+            convertView = layoutInflater.inflate(resource, null, false);
 
-        //getting the view elements of the list from the view
-        ImageView imageView = view.findViewById(R.id.imageView);
-        TextView textViewName = view.findViewById(R.id.textViewName);
-        TextView textViewTeam = view.findViewById(R.id.textViewDescription);
+            viewHolderItem= new ViewHolderItem();
+            viewHolderItem.imageView = (ImageView) convertView.findViewById(R.id.imageView);
+            viewHolderItem.name = (TextView) convertView.findViewById(R.id.textViewName);
+            //viewHolderItem.name = (TextView) convertView.findViewById(R.id.textViewDescription);
+            convertView.setTag(viewHolderItem);
+        }
+        else {
+            viewHolderItem = (ViewHolderItem) convertView.getTag();
+        }
 
 
         //getting the hero of the specified position
         ShoppingItem item = shoppingList.get(position);
 
         //adding values to the list item
-        imageView.setImageDrawable(context.getResources().getDrawable(item.getImage()));
-        textViewName.setText(item.getName());
-        textViewTeam.setText(item.getDescription());
+        if (item != null) {
+            viewHolderItem.name.setText(item.getName());
+            //viewHolderItem.description.setText(item.getDescription());
+            viewHolderItem.imageView.setImageResource(item.getImage());
+        }
 
         //finally returning the view
-        return view;
+        return convertView;
     }
 
+    static class ViewHolderItem {
+        TextView name;
+        TextView description;
+        ImageView imageView;
+
+    }
 }
