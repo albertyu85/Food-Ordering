@@ -1,16 +1,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  tools:context=".IndividualFragment">
-
-  <ListView
-    android:id="@+id/listview_food"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_alignParentStart="true"
-    android:layout_alignParentTop="true"
-    android:animationCache="false"
-    android:scrollingCache="false"
-    android:smoothScrollbar="true"/>
+    tools:context=".IndividualFragment">
+
+  <GridView
+      android:id="@+id/gridview"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:gravity="center"
+      android:numColumns="4"
+      android:adjustViewBounds="true"
+      />
+
 </RelativeLayout>
