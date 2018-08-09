@@ -42,7 +42,7 @@ public class MyListAdapter extends ArrayAdapter<ShoppingItem>{
             viewHolderItem= new ViewHolderItem();
             viewHolderItem.imageView = (ImageView) convertView.findViewById(R.id.imageView);
             viewHolderItem.name = (TextView) convertView.findViewById(R.id.textViewName);
-            //viewHolderItem.name = (TextView) convertView.findViewById(R.id.textViewDescription);
+            viewHolderItem.description = (TextView) convertView.findViewById(R.id.textViewDescription);
             convertView.setTag(viewHolderItem);
         }
         else {
@@ -56,7 +56,7 @@ public class MyListAdapter extends ArrayAdapter<ShoppingItem>{
         //adding values to the list item
         if (item != null) {
             viewHolderItem.name.setText(item.getName());
-            //viewHolderItem.description.setText(item.getDescription());
+            viewHolderItem.description.setText(item.getDescription());
             viewHolderItem.imageView.setImageResource(item.getImage());
         }
 

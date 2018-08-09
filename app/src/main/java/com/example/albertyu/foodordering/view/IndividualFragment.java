@@ -35,7 +35,6 @@ public class IndividualFragment extends Fragment{
       Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_individual, container, false);
 
-    final Controller controller = (Controller) getActivity().getApplicationContext();
 
     shoppingItemList = new ArrayList<>();
     listView = (ListView) view.findViewById(R.id.listview_food);
