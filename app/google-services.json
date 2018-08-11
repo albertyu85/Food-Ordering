@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "40004552154-3al5ml8ov1qnjfv92rggchce1us6iprt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.albertyu.foodordering",
+            "certificate_hash": "a6a213c64a3069c87ac369a55493c9ff9eaf69ac"
+          }
+        },
+        {
           "client_id": "40004552154-2g74gv90njc2oremfjd7djlnii4rlrco.apps.googleusercontent.com",
           "client_type": 3
         }
