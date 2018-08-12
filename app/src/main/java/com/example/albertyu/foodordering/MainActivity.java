@@ -1,5 +1,6 @@
 package com.example.albertyu.foodordering;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -90,9 +91,8 @@ public class MainActivity extends AppCompatActivity
         adapter = new FirebaseRecyclerAdapter<Category, MenuViewHolder>(options) {
             @Override
             protected void onBindViewHolder(MenuViewHolder holder, int position, Category model) {
-                MenuViewHolder myHolder = (MenuViewHolder) holder;
-                String a = model.getName();
-                myHolder.mName.setText(model.getName());
+                holder.mName.setText(model.getName());
+                Picasso.get().load(model.getImage()).into(holder.imageView);
             }
             @NonNull
             @Override
