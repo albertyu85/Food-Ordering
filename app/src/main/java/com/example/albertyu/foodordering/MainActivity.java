@@ -90,9 +90,16 @@ public class MainActivity extends AppCompatActivity
 
         adapter = new FirebaseRecyclerAdapter<Category, MenuViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(MenuViewHolder holder, int position, Category model) {
+            protected void onBindViewHolder(@NonNull MenuViewHolder holder, int position, @NonNull Category model) {
                 holder.mName.setText(model.getName());
                 Picasso.get().load(model.getImage()).into(holder.imageView);
+                final Category itemClick = model;
+                holder.setItemClickListener(new ItemClickListener() {
+                    @Override
+                    public void onClick(View view, int position, boolean isLongClick) {
+                        Toast.makeText(MainActivity.this, "" + itemClick.getName(), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
             @NonNull
             @Override
