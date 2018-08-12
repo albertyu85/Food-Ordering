@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -49,9 +50,22 @@ public class FoodActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         foodList = database.getReference().child("Item");
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_food);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+        int spanCount = 2;
+        int spacing = 20;
+        boolean includeEdge = true;
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_menu);
         recyclerView.setHasFixedSize(false);
-        layoutManager = new LinearLayoutManager(this);
+        layoutManager = new GridLayoutManager(this, 2);
+        recyclerView.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing, includeEdge));
         recyclerView.setLayoutManager(layoutManager);
 
         loadMenu();
@@ -66,6 +80,7 @@ public class FoodActivity extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(@NonNull ItemViewHolder holder, int position, @NonNull ShoppingItem model) {
                 holder.itemName.setText(model.getName());
+                holder.itemPrice.setText(model.getPrice());
                 Picasso.get().load(model.getImage()).into(holder.itemImageView);
                 final ShoppingItem itemClick = model;
                 holder.setItemClickListener(new ItemClickListener() {
