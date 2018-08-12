@@ -1,4 +1,4 @@
-package com.example.albertyu.foodordering;
+package com.example.albertyu.foodordering.model;
 
 public class ShoppingItem {
 
