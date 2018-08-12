@@ -1,11 +1,10 @@
 package com.example.albertyu.foodordering;
 
-import android.net.Uri;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -22,16 +21,13 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.albertyu.foodordering.Interface.ItemClickListener;
-import com.example.albertyu.foodordering.R;
-import com.example.albertyu.foodordering.ViewHolder.MenuViewHolder;
+import com.example.albertyu.foodordering.ViewHolder.CategoryViewHolder;
 import com.example.albertyu.foodordering.model.Category;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity
@@ -51,6 +47,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("MoJamaican LLC");
         setSupportActionBar(toolbar);
+
 
         database = FirebaseDatabase.getInstance();
         category = database.getReference().child("Category");
@@ -88,24 +85,27 @@ public class MainActivity extends AppCompatActivity
                 .setQuery(query, Category.class)
                 .build();
 
-        adapter = new FirebaseRecyclerAdapter<Category, MenuViewHolder>(options) {
+        adapter = new FirebaseRecyclerAdapter<Category, CategoryViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull MenuViewHolder holder, int position, @NonNull Category model) {
+            protected void onBindViewHolder(@NonNull CategoryViewHolder holder, int position, @NonNull Category model) {
                 holder.mName.setText(model.getName());
                 Picasso.get().load(model.getImage()).into(holder.imageView);
                 final Category itemClick = model;
                 holder.setItemClickListener(new ItemClickListener() {
                     @Override
                     public void onClick(View view, int position, boolean isLongClick) {
+                        Intent intent = new Intent(MainActivity.this, FoodActivity.class);
+                        startActivity(intent);
                         Toast.makeText(MainActivity.this, "" + itemClick.getName(), Toast.LENGTH_SHORT).show();
+
                     }
                 });
             }
             @NonNull
             @Override
-            public MenuViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_layout, parent, false);
-                return new MenuViewHolder(view);
+            public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_card_layout, parent, false);
+                return new CategoryViewHolder(view);
             }
         };
         recycler_menu.setAdapter(adapter);

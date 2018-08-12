@@ -2,37 +2,37 @@ package com.example.albertyu.foodordering.model;
 
 public class ShoppingItem {
 
-    private int image;
-    private String name;
-    private String description;
+    private String Image;
+    private String Name;
+    private String Price;
 
-    public ShoppingItem(int image, String name, String description) {
-        this.image = image;
-        this.name = name;
-        this.description = description;
+    public ShoppingItem(String image, String name, String price) {
+        this.Image = image;
+        this.Name = name;
+        this.Price = price;
     }
 
-    public int getImage() {
-        return image;
+    public String getImage() {
+        return Image;
     }
 
-    public void setImage(int image) {
-        this.image = image;
+    public void setImage(String image) {
+        Image = image;
     }
 
     public String getName() {
-        return name;
+        return Name;
     }
 
     public void setName(String name) {
-        this.name = name;
+        Name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getPrice() {
+        return Price;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setPrice(String price) {
+        Price = price;
     }
 }

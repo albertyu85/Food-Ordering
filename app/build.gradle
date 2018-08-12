@@ -46,6 +46,8 @@ dependencies {
     // FirebaseUI for Cloud Storage
     implementation 'com.firebaseui:firebase-ui-storage:4.1.0'
 
+    compile 'com.andanhm.quantitypicker:quantitypicker:1.1.0'
+
 }
 
 apply plugin: 'com.google.gms.google-services'
