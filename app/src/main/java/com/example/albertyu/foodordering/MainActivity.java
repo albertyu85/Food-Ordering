@@ -95,6 +95,7 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public void onClick(View view, int position, boolean isLongClick) {
                         Intent intent = new Intent(MainActivity.this, FoodActivity.class);
+                        intent.putExtra("CategoryId", adapter.getRef(position).getKey());
                         startActivity(intent);
                         Toast.makeText(MainActivity.this, "" + itemClick.getName(), Toast.LENGTH_SHORT).show();
 

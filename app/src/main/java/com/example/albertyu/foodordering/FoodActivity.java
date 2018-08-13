@@ -38,6 +38,8 @@ public class FoodActivity extends AppCompatActivity {
     DatabaseReference foodList;
     FirebaseRecyclerAdapter adapter;
 
+    String categoryId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +48,8 @@ public class FoodActivity extends AppCompatActivity {
         toolbar.setTitle("Mo Items");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
 
         database = FirebaseDatabase.getInstance();
         foodList = database.getReference().child("Item");
@@ -68,13 +72,19 @@ public class FoodActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing, includeEdge));
         recyclerView.setLayoutManager(layoutManager);
 
-        loadMenu();
+        if (getIntent() != null) {
+            categoryId = getIntent().getStringExtra("CategoryId");
+            if (!categoryId.isEmpty() && categoryId != null) {
+                loadMenu();
+            }
+        }
+
     }
 
     private void loadMenu() {
         Query query = FirebaseDatabase.getInstance().getReference().child("Item");
         FirebaseRecyclerOptions<ShoppingItem> options = new FirebaseRecyclerOptions.Builder<ShoppingItem>()
-                .setQuery(query, ShoppingItem.class)
+                .setQuery(query.orderByChild("Id").equalTo(categoryId), ShoppingItem.class)
                 .build();
         adapter = new FirebaseRecyclerAdapter<ShoppingItem, ItemViewHolder>(options) {
             @Override
