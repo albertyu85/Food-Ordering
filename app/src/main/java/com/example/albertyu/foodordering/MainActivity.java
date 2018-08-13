@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("MoJamaican LLC");
+        toolbar.setTitle("Mo Jamaican LLC");
         setSupportActionBar(toolbar);
 
 
@@ -97,8 +97,7 @@ public class MainActivity extends AppCompatActivity
                         Intent intent = new Intent(MainActivity.this, FoodActivity.class);
                         intent.putExtra("CategoryId", adapter.getRef(position).getKey());
                         startActivity(intent);
-                        Toast.makeText(MainActivity.this, "" + itemClick.getName(), Toast.LENGTH_SHORT).show();
-
+                       // Toast.makeText(MainActivity.this, "" + itemClick.getName(), Toast.LENGTH_SHORT).show();
                     }
                 });
             }
