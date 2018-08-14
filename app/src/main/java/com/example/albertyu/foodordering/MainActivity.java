@@ -165,7 +165,8 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_cart) {
 
         } else if (id == R.id.nav_about) {
-
+            Intent intent = new Intent(MainActivity.this, AboutUs.class);
+            startActivity(intent);
         } else if (id == R.id.nav_faq) {
 
         } else if (id == R.id.nav_contact) {
