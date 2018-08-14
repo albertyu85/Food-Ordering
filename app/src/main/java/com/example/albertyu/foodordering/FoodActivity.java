@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.albertyu.foodordering.Interface.ItemClickListener;
@@ -27,6 +28,7 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 public class FoodActivity extends AppCompatActivity {
@@ -37,7 +39,7 @@ public class FoodActivity extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference foodList;
     FirebaseRecyclerAdapter adapter;
-
+    ProgressBar simpleProgressBar;
     String categoryId;
 
     @Override
@@ -49,7 +51,7 @@ public class FoodActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
+        simpleProgressBar = (ProgressBar) findViewById(R.id.simpleProgressBar);
 
         database = FirebaseDatabase.getInstance();
         foodList = database.getReference().child("Item");
@@ -71,7 +73,6 @@ public class FoodActivity extends AppCompatActivity {
         layoutManager = new GridLayoutManager(this, 2);
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing, includeEdge));
         recyclerView.setLayoutManager(layoutManager);
-
         if (getIntent() != null) {
             categoryId = getIntent().getStringExtra("CategoryId");
             if (!categoryId.isEmpty() && categoryId != null) {
@@ -91,7 +92,17 @@ public class FoodActivity extends AppCompatActivity {
             protected void onBindViewHolder(@NonNull ItemViewHolder holder, int position, @NonNull ShoppingItem model) {
                 holder.itemName.setText(model.getName());
                 holder.itemPrice.setText(model.getPrice());
-                Picasso.get().load(model.getImage()).into(holder.itemImageView);
+                Picasso.get().load(model.getImage()).into(holder.itemImageView, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        simpleProgressBar.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+
+                    }
+                });
                 final ShoppingItem itemClick = model;
                 holder.setItemClickListener(new ItemClickListener() {
                     @Override

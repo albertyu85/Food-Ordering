@@ -18,6 +18,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.albertyu.foodordering.Interface.ItemClickListener;
@@ -28,6 +29,7 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity
     DatabaseReference category;
     FirebaseRecyclerAdapter adapter;
 
+    ProgressBar simpleProgressBar;
     RecyclerView recycler_menu;
     RecyclerView.LayoutManager layoutManager;
 
@@ -52,6 +55,7 @@ public class MainActivity extends AppCompatActivity
         database = FirebaseDatabase.getInstance();
         category = database.getReference().child("Category");
 
+        simpleProgressBar = (ProgressBar) findViewById(R.id.simpleProgressBar);
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -89,7 +93,17 @@ public class MainActivity extends AppCompatActivity
             @Override
             protected void onBindViewHolder(@NonNull CategoryViewHolder holder, int position, @NonNull Category model) {
                 holder.mName.setText(model.getName());
-                Picasso.get().load(model.getImage()).into(holder.imageView);
+                Picasso.get().load(model.getImage()).into(holder.imageView, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        simpleProgressBar.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+
+                    }
+                });
                 final Category itemClick = model;
                 holder.setItemClickListener(new ItemClickListener() {
                     @Override
