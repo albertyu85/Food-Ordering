@@ -81,6 +81,7 @@ public class AboutUs extends AppCompatActivity
             // Handle the camera action
         } else if (id == R.id.nav_menu) {
             Intent intent = new Intent(AboutUs.this, MainActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_cart) {
 
         } else if (id == R.id.nav_about) {

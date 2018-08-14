@@ -5,6 +5,11 @@
     <string name="open">Open</string>
     <string name="close">Close</string>
     <string name="title_activity_main">MoJamaican</string>
+    <string name="our_mission">Mo Jamaican provides a unique indulgence in the Jamaican culture to the customers that are Jamaican and Jamaican enthusiasts.
+        With key focus placed on preservation of the Jamaican culture, customer satsifaction, efficient delivery, quality products and provide unique fillings
+        that are refreshingly customer focused. We will procide employment and impartial compensation to all our employees, investors, and share owners
+        <br>Mo Jamaican LLC will create a work environment that is safe, enjoyable, and profitable for all</br>
+    </string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">MoJamaican LLC</string>

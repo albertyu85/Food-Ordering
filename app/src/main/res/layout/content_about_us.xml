@@ -10,11 +10,19 @@
 
 
     <TextView
+        android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Our Mission"
         android:textStyle="italic"
         android:textColor="@color/colorPrimary"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/our_mission"
+        android:layout_below="@id/title"
         />
 
 </android.support.constraint.ConstraintLayout>
