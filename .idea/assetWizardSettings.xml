@@ -29,6 +29,17 @@
                                 <PersistentState>
                                   <option name="children">
                                     <map>
+                                      <entry key="clipArt">
+                                        <value>
+                                          <PersistentState>
+                                            <option name="values">
+                                              <map>
+                                                <entry key="trimmed" value="true" />
+                                              </map>
+                                            </option>
+                                          </PersistentState>
+                                        </value>
+                                      </entry>
                                       <entry key="image">
                                         <value>
                                           <PersistentState>
@@ -45,8 +56,9 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="iconShape" value="CIRCLE" />
+                                      <entry key="iconShape" value="HRECT" />
                                       <entry key="imageAsset" value="C:\Users\Albert\AndroidStudioProjects\Food-Ordering\app\src\main\res\drawable\logo.png" />
+                                      <entry key="outputName" value="ic_logo" />
                                     </map>
                                   </option>
                                 </PersistentState>
