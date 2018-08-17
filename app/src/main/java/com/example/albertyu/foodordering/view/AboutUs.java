@@ -1,4 +1,4 @@
-package com.example.albertyu.foodordering;
+package com.example.albertyu.foodordering.view;
 
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
@@ -13,6 +13,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.example.albertyu.foodordering.R;
 
 public class AboutUs extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{

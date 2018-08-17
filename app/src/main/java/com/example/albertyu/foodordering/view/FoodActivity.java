@@ -1,4 +1,4 @@
-package com.example.albertyu.foodordering;
+package com.example.albertyu.foodordering.view;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -7,21 +7,18 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.albertyu.foodordering.GridSpacingItemDecoration;
 import com.example.albertyu.foodordering.Interface.ItemClickListener;
-import com.example.albertyu.foodordering.ViewHolder.CategoryViewHolder;
+import com.example.albertyu.foodordering.R;
 import com.example.albertyu.foodordering.ViewHolder.ItemViewHolder;
-import com.example.albertyu.foodordering.model.Category;
 import com.example.albertyu.foodordering.model.ShoppingItem;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -53,9 +50,6 @@ public class FoodActivity extends AppCompatActivity {
 
         simpleProgressBar = (ProgressBar) findViewById(R.id.simpleProgressBar);
 
-        database = FirebaseDatabase.getInstance();
-        foodList = database.getReference().child("Item");
-
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -65,6 +59,19 @@ public class FoodActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        setUp();
+        if (getIntent() != null) {
+            categoryId = getIntent().getStringExtra("CategoryId");
+            if (categoryId != null && !categoryId.isEmpty()) {
+                loadMenu();
+            }
+        }
+
+    }
+
+    private void setUp() {
+        database = FirebaseDatabase.getInstance();
+        foodList = database.getReference().child("Item");
         int spanCount = 2;
         int spacing = 20;
         boolean includeEdge = true;
@@ -73,16 +80,10 @@ public class FoodActivity extends AppCompatActivity {
         layoutManager = new GridLayoutManager(this, 2);
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing, includeEdge));
         recyclerView.setLayoutManager(layoutManager);
-        if (getIntent() != null) {
-            categoryId = getIntent().getStringExtra("CategoryId");
-            if (!categoryId.isEmpty() && categoryId != null) {
-                loadMenu();
-            }
-        }
-
     }
-
     private void loadMenu() {
+        //TODO:Make sure OnActivityResult is called. When back button is clicked categoryid is not getting set resulting in loading bar
+        //categoryId = "02";
         Query query = FirebaseDatabase.getInstance().getReference().child("Item");
         FirebaseRecyclerOptions<ShoppingItem> options = new FirebaseRecyclerOptions.Builder<ShoppingItem>()
                 .setQuery(query.orderByChild("Id").equalTo(categoryId), ShoppingItem.class)
@@ -107,10 +108,10 @@ public class FoodActivity extends AppCompatActivity {
                 holder.setItemClickListener(new ItemClickListener() {
                     @Override
                     public void onClick(View view, int position, boolean isLongClick) {
-                        //Intent intent = new Intent(FoodActivity.this, FoodActivity.class);
-                        //startActivity(intent);
                         Toast.makeText(FoodActivity.this, "" + itemClick.getName(), Toast.LENGTH_SHORT).show();
-
+                        Intent intent = new Intent(FoodActivity.this, DetailActivity.class);
+                        intent.putExtra("CategoryId", categoryId);
+                        startActivityForResult(intent, 999);
                     }
                 });
             }
@@ -124,9 +125,20 @@ public class FoodActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 999 && resultCode == RESULT_OK) {
+            categoryId = data.getStringExtra("CategoryId");
+        }
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
+        setUp();
+        loadMenu();
         adapter.startListening();
     }
 
@@ -135,4 +147,5 @@ public class FoodActivity extends AppCompatActivity {
         super.onStop();
         adapter.stopListening();
     }
+
 }

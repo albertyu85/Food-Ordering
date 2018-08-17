@@ -1,4 +1,4 @@
-package com.example.albertyu.foodordering;
+package com.example.albertyu.foodordering.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,9 +19,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.example.albertyu.foodordering.Interface.ItemClickListener;
+import com.example.albertyu.foodordering.R;
 import com.example.albertyu.foodordering.ViewHolder.CategoryViewHolder;
 import com.example.albertyu.foodordering.model.Category;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
