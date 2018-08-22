@@ -63,6 +63,7 @@ public class FoodActivity extends AppCompatActivity {
         if (getIntent() != null) {
             categoryId = getIntent().getStringExtra("CategoryId");
             if (categoryId != null && !categoryId.isEmpty()) {
+                setUp();
                 loadMenu();
             }
         }
@@ -111,6 +112,9 @@ public class FoodActivity extends AppCompatActivity {
                         Toast.makeText(FoodActivity.this, "" + itemClick.getName(), Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(FoodActivity.this, DetailActivity.class);
                         intent.putExtra("CategoryId", categoryId);
+                        intent.putExtra("Name", itemClick.getName());
+                        intent.putExtra("Description", itemClick.getDescription());
+                        intent.putExtra("Image", itemClick.getImage());
                         startActivityForResult(intent, 999);
                     }
                 });
@@ -137,8 +141,6 @@ public class FoodActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        setUp();
-        loadMenu();
         adapter.startListening();
     }
 
