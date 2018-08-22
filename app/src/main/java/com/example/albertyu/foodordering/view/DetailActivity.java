@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.albertyu.foodordering.R;
 import com.squareup.picasso.Callback;
@@ -19,7 +20,11 @@ public class DetailActivity extends AppCompatActivity {
     String image;
     String name;
     String description;
+    String price;
     ImageView mFoodImage;
+    TextView mName;
+    TextView mPrice;
+    TextView mDescription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +41,12 @@ public class DetailActivity extends AppCompatActivity {
             image = getIntent().getStringExtra("Image");
             name = getIntent().getStringExtra("Name");
             description = getIntent().getStringExtra("Description");
+            price = getIntent().getStringExtra("Price");
         }
         mFoodImage = (ImageView) findViewById(R.id.detailImageView);
+        mName = (TextView) findViewById(R.id.textViewName);
+        mPrice = (TextView) findViewById(R.id.textViewPrice);
+        mDescription = (TextView) findViewById(R.id.textViewDescription);
         Picasso.get().load(image).into(mFoodImage, new Callback() {
             @Override
             public void onSuccess() {
@@ -49,6 +58,9 @@ public class DetailActivity extends AppCompatActivity {
 
             }
         });
+        mName.setText(name);
+        mPrice.setText(price);
+        mDescription.setText(description);
     }
 
 }

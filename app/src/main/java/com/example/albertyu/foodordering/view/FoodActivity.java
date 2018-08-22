@@ -115,6 +115,7 @@ public class FoodActivity extends AppCompatActivity {
                         intent.putExtra("Name", itemClick.getName());
                         intent.putExtra("Description", itemClick.getDescription());
                         intent.putExtra("Image", itemClick.getImage());
+                        intent.putExtra("Price", itemClick.getPrice());
                         startActivityForResult(intent, 999);
                     }
                 });
