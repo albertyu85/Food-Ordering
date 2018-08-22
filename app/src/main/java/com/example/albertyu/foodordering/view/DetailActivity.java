@@ -1,7 +1,9 @@
 package com.example.albertyu.foodordering.view;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.Image;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -34,9 +36,11 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
         categoryId = "";
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Mo Jamaican LLC");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        CollapsingToolbarLayout ctl= (CollapsingToolbarLayout) findViewById(R.id.CollapsingToolbar);
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -54,6 +58,7 @@ public class DetailActivity extends AppCompatActivity {
             description = getIntent().getStringExtra("Description");
             price = getIntent().getStringExtra("Price");
         }
+        toolbar.setTitle(name);
         mFoodImage = (ImageView) findViewById(R.id.detailImageView);
         mName = (TextView) findViewById(R.id.textViewName);
         mPrice = (TextView) findViewById(R.id.textViewPrice);
