@@ -55,8 +55,7 @@ public class FoodActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                sendToCart();
             }
         });
         setUp();
@@ -151,4 +150,8 @@ public class FoodActivity extends AppCompatActivity {
         adapter.stopListening();
     }
 
+    public void sendToCart() {
+        Intent intent = new Intent(FoodActivity.this, CartActivity.class);
+        startActivity(intent);
+    }
 }

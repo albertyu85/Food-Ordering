@@ -46,8 +46,7 @@ public class DetailActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                sendToCart();
             }
         });
 
@@ -79,4 +78,8 @@ public class DetailActivity extends AppCompatActivity {
         mDescription.setText(description);
     }
 
+    public void sendToCart() {
+        Intent intent = new Intent(DetailActivity.this, CartActivity.class);
+        startActivity(intent);
+    }
 }

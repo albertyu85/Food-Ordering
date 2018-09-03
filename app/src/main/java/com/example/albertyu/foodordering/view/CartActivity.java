@@ -3,6 +3,8 @@ package com.example.albertyu.foodordering.view;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.example.albertyu.foodordering.R;
+
 public class CartActivity extends AppCompatActivity {
 
     @Override

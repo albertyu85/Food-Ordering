@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -19,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.albertyu.foodordering.Interface.ItemClickListener;
 import com.example.albertyu.foodordering.R;
@@ -26,6 +28,11 @@ import com.example.albertyu.foodordering.ViewHolder.CategoryViewHolder;
 import com.example.albertyu.foodordering.model.Category;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
@@ -35,10 +42,11 @@ import com.squareup.picasso.Picasso;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private String TAG = "Anonymous Sign In";
     FirebaseDatabase database;
     DatabaseReference category;
     FirebaseRecyclerAdapter adapter;
-
+    private FirebaseAuth mAuth;
     ProgressBar simpleProgressBar;
     RecyclerView recycler_menu;
     RecyclerView.LayoutManager layoutManager;
@@ -51,6 +59,8 @@ public class MainActivity extends AppCompatActivity
         toolbar.setTitle("Mo Jamaican LLC");
         setSupportActionBar(toolbar);
 
+        mAuth = FirebaseAuth.getInstance();
+        signInAnonymously();
 
         database = FirebaseDatabase.getInstance();
         category = database.getReference().child("Category");
@@ -62,8 +72,7 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                sendToCart();
             }
         });
 
@@ -163,7 +172,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_menu) {
 
         } else if (id == R.id.nav_cart) {
-
+            sendToCart();
         } else if (id == R.id.nav_about) {
             Intent intent = new Intent(MainActivity.this, AboutUs.class);
             startActivity(intent);
@@ -187,6 +196,28 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onStop() {
         super.onStop();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
         adapter.stopListening();
+    }
+
+    public void sendToCart() {
+        Intent intent = new Intent(MainActivity.this, CartActivity.class);
+        startActivity(intent);
+    }
+
+    private void signInAnonymously() {
+        // [START signin_anonymously]
+        mAuth.signInAnonymously()
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d(TAG, "OnComplete : " +task.isSuccessful());
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "Failed : ", task.getException());
+                            Toast.makeText(MainActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+        // [END signin_anonymously]
     }
 }
