@@ -27,7 +27,8 @@
         <activity android:name=".view.AboutUs" />
         <activity
             android:name=".view.DetailActivity"
-            android:parentActivityName=".view.MainActivity"/>
+            android:parentActivityName=".view.MainActivity" />
+        <activity android:name=".view.CartActivity"></activity>
     </application>
 
 </manifest>
