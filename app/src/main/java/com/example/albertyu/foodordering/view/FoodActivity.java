@@ -15,10 +15,12 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.albertyu.foodordering.Controller;
 import com.example.albertyu.foodordering.GridSpacingItemDecoration;
 import com.example.albertyu.foodordering.Interface.ItemClickListener;
 import com.example.albertyu.foodordering.R;
 import com.example.albertyu.foodordering.ViewHolder.ItemViewHolder;
+import com.example.albertyu.foodordering.model.Order;
 import com.example.albertyu.foodordering.model.ShoppingItem;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -28,16 +30,18 @@ import com.google.firebase.database.Query;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+
 public class FoodActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
-
     FirebaseDatabase database;
     DatabaseReference foodList;
     FirebaseRecyclerAdapter adapter;
     ProgressBar simpleProgressBar;
     String categoryId;
+    Controller c;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +52,8 @@ public class FoodActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        c = new Controller(this);
         simpleProgressBar = (ProgressBar) findViewById(R.id.simpleProgressBar);
-
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -66,7 +70,6 @@ public class FoodActivity extends AppCompatActivity {
                 loadMenu();
             }
         }
-
     }
 
     private void setUp() {
@@ -90,7 +93,7 @@ public class FoodActivity extends AppCompatActivity {
                 .build();
         adapter = new FirebaseRecyclerAdapter<ShoppingItem, ItemViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull ItemViewHolder holder, int position, @NonNull ShoppingItem model) {
+            protected void onBindViewHolder(@NonNull final ItemViewHolder holder, int position, @NonNull ShoppingItem model) {
                 holder.itemName.setText(model.getName());
                 holder.itemPrice.setText(model.getPrice());
                 Picasso.get().load(model.getImage()).into(holder.itemImageView, new Callback() {
@@ -118,6 +121,18 @@ public class FoodActivity extends AppCompatActivity {
                         startActivityForResult(intent, 999);
                     }
                 });
+                holder.addToCart.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Order order = new Order(holder.itemName.getText().toString(), categoryId, 1, holder.itemPrice.getText().toString());
+                        c.addToCart(order);
+
+                        //TODO: Write to database /User/UID/food
+                        DatabaseReference user = c.getDatabase().getReference().child("User");
+                        user.child(c.getUser().getUid()).setValue(order);
+                        Toast.makeText(FoodActivity.this, c.getCart().toString(), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
             @NonNull
             @Override
@@ -128,7 +143,6 @@ public class FoodActivity extends AppCompatActivity {
         };
         recyclerView.setAdapter(adapter);
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
