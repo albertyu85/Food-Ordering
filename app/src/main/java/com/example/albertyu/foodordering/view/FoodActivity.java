@@ -129,7 +129,7 @@ public class FoodActivity extends AppCompatActivity {
 
                         //TODO: Write to database /User/UID/food
                         DatabaseReference user = c.getDatabase().getReference().child("User");
-                        user.child(c.getUser().getUid()).setValue(order);
+                        user.child(c.getUser().getUid()).child("Food").child("" + (c.getCart().size() - 1)).setValue(order);
                         Toast.makeText(FoodActivity.this, c.getCart().toString(), Toast.LENGTH_SHORT).show();
                     }
                 });
