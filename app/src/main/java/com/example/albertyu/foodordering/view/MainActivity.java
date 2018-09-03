@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.albertyu.foodordering.Controller;
 import com.example.albertyu.foodordering.Interface.ItemClickListener;
 import com.example.albertyu.foodordering.R;
 import com.example.albertyu.foodordering.ViewHolder.CategoryViewHolder;
@@ -43,10 +44,8 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private String TAG = "Anonymous Sign In";
-    FirebaseDatabase database;
-    DatabaseReference category;
+    private Controller c;
     FirebaseRecyclerAdapter adapter;
-    private FirebaseAuth mAuth;
     ProgressBar simpleProgressBar;
     RecyclerView recycler_menu;
     RecyclerView.LayoutManager layoutManager;
@@ -59,14 +58,10 @@ public class MainActivity extends AppCompatActivity
         toolbar.setTitle("Mo Jamaican LLC");
         setSupportActionBar(toolbar);
 
-        mAuth = FirebaseAuth.getInstance();
+        c = new Controller(this);
         signInAnonymously();
 
-        database = FirebaseDatabase.getInstance();
-        category = database.getReference().child("Category");
-
         simpleProgressBar = (ProgressBar) findViewById(R.id.simpleProgressBar);
-
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -93,7 +88,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void loadMenu() {
-        Query query = FirebaseDatabase.getInstance().getReference().child("Category");
+        Query query = c.getCategory();
         FirebaseRecyclerOptions<Category> options = new FirebaseRecyclerOptions.Builder<Category>()
                 .setQuery(query, Category.class)
                 .build();
@@ -196,7 +191,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onStop() {
         super.onStop();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        FirebaseUser currentUser = c.getUser();
         adapter.stopListening();
     }
 
@@ -206,8 +201,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void signInAnonymously() {
-        // [START signin_anonymously]
-        mAuth.signInAnonymously()
+        c.getmAuth().signInAnonymously()
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -218,6 +212,5 @@ public class MainActivity extends AppCompatActivity
                         }
                     }
                 });
-        // [END signin_anonymously]
     }
 }
