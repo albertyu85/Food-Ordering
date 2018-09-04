@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,9 +25,12 @@ import com.example.albertyu.foodordering.model.Order;
 import com.example.albertyu.foodordering.model.ShoppingItem;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -53,6 +57,30 @@ public class FoodActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         c = new Controller(this);
+
+        DatabaseReference ref = c.getDatabase().getReference().child("User").child(c.getUser().getUid()).child("Food");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.e("Count", "" + dataSnapshot.getChildrenCount());
+                if (c.getCart().size() < 1) {
+                    for (DataSnapshot orderSnapshot : dataSnapshot.getChildren()) {
+                        Order order = orderSnapshot.getValue(Order.class);
+                        c.addToCart(order);
+                    }
+                } else {
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("Snap", "not working");
+            }
+        });
+
+
         simpleProgressBar = (ProgressBar) findViewById(R.id.simpleProgressBar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -126,11 +154,10 @@ public class FoodActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         Order order = new Order(holder.itemName.getText().toString(), categoryId, 1, holder.itemPrice.getText().toString());
                         c.addToCart(order);
-
                         //TODO: Write to database /User/UID/food
                         DatabaseReference user = c.getDatabase().getReference().child("User");
-                        user.child(c.getUser().getUid()).child("Food").child("" + (c.getCart().size() - 1)).setValue(order);
-                        Toast.makeText(FoodActivity.this, c.getCart().toString(), Toast.LENGTH_SHORT).show();
+                        user.child(c.getUser().getUid()).child("Food").child("" + (c.getCart().size())).setValue(order);
+                        Toast.makeText(FoodActivity.this, c.getCart().size() +"", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

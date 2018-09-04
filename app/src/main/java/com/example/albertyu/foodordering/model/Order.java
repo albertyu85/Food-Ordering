@@ -12,6 +12,10 @@ public class Order {
         this.productId = productId;
         Quantity = quantity;
         Price = price;
+
+    }
+    public Order() {
+
     }
 
     public String getProductName() {
@@ -45,4 +49,6 @@ public class Order {
     public void setPrice(String price) {
         Price = price;
     }
+
 }
+
