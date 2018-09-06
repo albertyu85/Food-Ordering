@@ -1,12 +1,17 @@
 package com.example.albertyu.foodordering;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.example.albertyu.foodordering.model.Order;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -23,7 +28,9 @@ public class Controller {
         database = FirebaseDatabase.getInstance();
         category = database.getReference().child("Category");
         user = mAuth.getCurrentUser();
+        //TODO: Read cart data into arraylist
         cart = new ArrayList<>();
+
     }
 
     public FirebaseUser getUser() {
