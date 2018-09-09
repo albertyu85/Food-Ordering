@@ -57,8 +57,7 @@ public class FoodActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         c = new Controller(this);
-
-        DatabaseReference ref = c.getDatabase().getReference().child("User").child(c.getUser().getUid()).child("Food");
+       /* DatabaseReference ref = c.getDatabase().getReference().child("User").child(c.getUser().getUid()).child("Food");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -78,9 +77,7 @@ public class FoodActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.d("Snap", "not working");
             }
-        });
-
-
+        });*/
         simpleProgressBar = (ProgressBar) findViewById(R.id.simpleProgressBar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -129,10 +126,8 @@ public class FoodActivity extends AppCompatActivity {
                     public void onSuccess() {
                         simpleProgressBar.setVisibility(View.GONE);
                     }
-
                     @Override
                     public void onError(Exception e) {
-
                     }
                 });
                 final ShoppingItem itemClick = model;
@@ -153,11 +148,12 @@ public class FoodActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         Order order = new Order(holder.itemName.getText().toString(), categoryId, 1, holder.itemPrice.getText().toString());
-                        c.addToCart(order);
+                        //c.addToCart(order);
                         //TODO: Write to database /User/UID/food
                         DatabaseReference user = c.getDatabase().getReference().child("User");
-                        user.child(c.getUser().getUid()).child("Food").child("" + (c.getCart().size())).setValue(order);
-                        Toast.makeText(FoodActivity.this, c.getCart().size() +"", Toast.LENGTH_SHORT).show();
+                        user.child(c.getUser().getUid()).child("Food").child("" + (c.getCounter())).setValue(order);
+                        Toast.makeText(FoodActivity.this, c.getCounter() +"", Toast.LENGTH_SHORT).show();
+                        c.increment();
                     }
                 });
             }
@@ -170,7 +166,6 @@ public class FoodActivity extends AppCompatActivity {
         };
         recyclerView.setAdapter(adapter);
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -178,7 +173,6 @@ public class FoodActivity extends AppCompatActivity {
             categoryId = data.getStringExtra("CategoryId");
         }
     }
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -190,7 +184,6 @@ public class FoodActivity extends AppCompatActivity {
         super.onStop();
         adapter.stopListening();
     }
-
     public void sendToCart() {
         Intent intent = new Intent(FoodActivity.this, CartActivity.class);
         startActivity(intent);

@@ -28,7 +28,10 @@
         <activity
             android:name=".view.DetailActivity"
             android:parentActivityName=".view.MainActivity" />
-        <activity android:name=".view.CartActivity"></activity>
+        <activity
+            android:name=".view.CartActivity"
+            android:parentActivityName=".view.MainActivity"/>
+
     </application>
 
 </manifest>

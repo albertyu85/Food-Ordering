@@ -21,16 +21,14 @@ public class Controller {
     private DatabaseReference category;
     private FirebaseAuth mAuth;
     private FirebaseUser user;
-    private ArrayList<Order> cart;
+    private int counter;
 
     public Controller(Context c) {
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         category = database.getReference().child("Category");
         user = mAuth.getCurrentUser();
-        //TODO: Read cart data into arraylist
-        cart = new ArrayList<>();
-
+        counter = 0;
     }
 
     public FirebaseUser getUser() {
@@ -47,11 +45,10 @@ public class Controller {
     public FirebaseDatabase getDatabase() {
         return database;
     }
-
-    public void addToCart(Order order) {
-        cart.add(order);
+    public void increment() {
+        counter++;
     }
-    public ArrayList<Order> getCart() {
-        return cart;
+    public int getCounter() {
+        return counter;
     }
 }

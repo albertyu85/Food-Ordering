@@ -6,10 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".view.CartActivity">
 
-    <ListView
-        android:id="@+id/listViewCart"
+    <include
+        layout="@layout/app_bar_cart"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></ListView>
+        android:layout_height="match_parent" />
 
 
 </android.support.constraint.ConstraintLayout>
